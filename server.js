@@ -3,8 +3,6 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 
-import expenseRoutes from "./routes/expenses.js";
-
 dotenv.config();
 
 const app = express();
@@ -13,27 +11,27 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Routes
-app.use("/api/expenses", expenseRoutes);
-
-// Root test route
+// Test route
 app.get("/", (req, res) => {
-  res.send("Expense Tracker Backend is Running 🚀");
+  res.send("Expense Tracker Backend Running 🚀");
 });
 
-// MongoDB Connection
+// MongoDB connection
 mongoose
-  .connect(process.env.MONGO_URI)
+  .connect(process.env.MONGODB_URI)
   .then(() => {
-    console.log("MongoDB Connected ✅");
+    console.log("MongoDB connected ✅");
   })
   .catch((err) => {
     console.error("MongoDB Connection Error ❌", err);
   });
 
-// Server
-const PORT = process.env.PORT || 5000;
+// Routes
+import expenseRoutes from "./routes/expenses.js";
+app.use("/api/expenses", expenseRoutes);
+
+// Port
+const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-
