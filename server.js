@@ -2,9 +2,6 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
-fetch("https://expense-tracker-backend-1-gxic.onrender.com/api/expenses")
-  .then(res => res.json())
-  .then(data => console.log(data));
 
 dotenv.config();
 
@@ -22,12 +19,8 @@ app.get("/", (req, res) => {
 // MongoDB connection
 mongoose
   .connect(process.env.MONGODB_URI)
-  .then(() => {
-    console.log("MongoDB connected ✅");
-  })
-  .catch((err) => {
-    console.error("MongoDB Connection Error ❌", err);
-  });
+  .then(() => console.log("MongoDB connected ✅"))
+  .catch(err => console.error("MongoDB Connection Error ❌", err));
 
 // Routes
 import expenseRoutes from "./routes/expenses.js";
